@@ -1,0 +1,4 @@
+opencv-python>=4.9
+numpy
+mediapipe>=0.10
+pygame
