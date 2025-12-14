@@ -39,4 +39,25 @@ The player’s **index finger acts as a virtual knife**, allowing fruits to be s
 ---
 
 ## 📁 Project Structure
+VisionBlade/
+│
+├── main.py # Main game loop
+├── blade_tracker.py # Finger (knife) tracking logic
+├── fruit.py # Fruit physics and rendering
+├── game_utils.py # Collision detection utilities
+├── requirements.txt # Dependencies
+├── README.md
+└── assets/
+├── apple.png
+└── bomb.png
+
+---
+
+## ⚙️ Installation
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/YOUR_USERNAME/VisionBlade.git
+cd VisionBlade
+
 
