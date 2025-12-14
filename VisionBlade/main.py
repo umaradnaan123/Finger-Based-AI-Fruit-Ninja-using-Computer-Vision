@@ -6,11 +6,17 @@ from blade_tracker import BladeTracker
 from fruit import Fruit
 from game_utils import line_intersects_rect
 
-# ------------------ INITIAL SETUP ------------------
+# ------------------ CAMERA SETUP ------------------
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
+if not cap.isOpened():
+    # Render / cloud mode: No webcam available
+    print("Camera not available. Running in Render mode (simulation).")
+    # Keep process alive
+    while True:
+        time.sleep(60)
+
+# Local mode: continue normal game
 tracker = BladeTracker()
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -33,12 +39,12 @@ paused = False
 spawn_rate = 20
 
 prev_time = time.time()
-last_spawn = time.time()
 
 # ------------------ MAIN LOOP ------------------
 while True:
     ret, frame = cap.read()
     if not ret:
+        print("Failed to grab frame from camera. Exiting.")
         break
 
     frame = cv2.flip(frame, 1)
@@ -69,7 +75,6 @@ while True:
                 game_over = True
             else:
                 score += 10
-
         elif fruit.y > h:
             fruits.remove(fruit)
 
@@ -106,7 +111,7 @@ while True:
                     (w // 2 - 170, h // 2 + 70),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-    cv2.imshow("VisionBlade v3.1 — Object-Based AI Fruit Ninja", frame)
+    cv2.imshow("VisionBlade v3.3 — Finger Knife AI Fruit Ninja", frame)
 
     # ------------------ CONTROLS ------------------
     key = cv2.waitKey(1) & 0xFF
